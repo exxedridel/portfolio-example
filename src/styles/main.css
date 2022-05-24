@@ -1,4 +1,10 @@
-@import "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500";
+@font-face { /* this replaced the googlefonts @import  */
+	font-family: 'Ubuntu';
+	src: url('../assets/fonts/ubuntu-regular.woff2') format('woff2'),
+		url('../assets/fonts/ubuntu-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
 
 html {
 	font-family: sans-serif;
@@ -298,18 +304,17 @@ body {
 }
 
 .card_social {
-	width: 400px;
+	width: 330px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
-	padding: 1em 0;
+	padding: 1.25em 0 0;
 }
 .card_social img {
 	width: 32px;
 	height: 32px;
 }
-
 .card_social a {
 	text-decoration: none;
 }
