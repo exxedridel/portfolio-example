@@ -1,5 +1,5 @@
 // import getData from '@utils/getData.js';
-import heved from '@images/heved.jpg';
+import heved from '@images/heved.png';
 import whatsapp from '@images/whatsapp.png';
 import gmail from '@images/gmail.png';
 import linkedin from '@images/linkedin.png';
