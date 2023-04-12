@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // after the devD inst
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // erase <style> line from public/index.html
 const CopyPlugin =require('copy-webpack-plugin'); 
 const Dotenv = require('dotenv-webpack'); 
+const BundleAnalizerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
    entry: './src/index.js',
@@ -12,7 +13,7 @@ module.exports = {
       assetModuleFilename: 'assets/images/[hash][ext][query]' // to add images to dist assets/images file
    },
    mode: 'development',
-   watch: true,
+   devtool: 'source-map',
    resolve: {
       extensions: ['.js'],
       alias: {
@@ -35,7 +36,7 @@ module.exports = {
             test: /\.css|.styl$/i, // add .styl after install stylus-loader devD
             use: [MiniCssExtractPlugin.loader, 
             'css-loader',
-            'stylus-loader' // add after install the devD
+            'stylus-loader'
             ],
          },
          {
@@ -64,10 +65,10 @@ module.exports = {
          template: './public/index.html',
          filename: './index.html'
       }),
-      new MiniCssExtractPlugin( // added after install the devD (1)
-         {                                              
-            filename: 'assets/[name].[contenthash].css' // value added after install minimizer devD (2)
-         }                                              // to move the .css to dist/assets (2)
+      new MiniCssExtractPlugin( 
+         { // value added after install minimizer devD to move the .css to dist/assets
+            filename: 'assets/[name].[contenthash].css'
+         }
       ), 
       new CopyPlugin({ // after install the devD copy-webpack-plugin
          patterns: [ 
@@ -77,7 +78,19 @@ module.exports = {
             }
          ]
       }),
-      new Dotenv(), // after install devD
+      new Dotenv(), 
+      new BundleAnalizerPlugin(
+         {
+         analyzerMode:  'static', //to do it just at the build instance
+         openAnalyzer:  true, // to show the result inmediatly
+         }
+      ),
    ],
-   // optimization: part deleted in this file
+   // optimization:{} part deleted in dev.js file
+   devServer: {
+      static: path.join(__dirname, 'dist'),
+      compress: true,
+      historyApiFallback: true,
+      port: 3001,
+   },
 }
